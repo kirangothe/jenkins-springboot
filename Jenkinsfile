@@ -12,11 +12,11 @@ pipeline {
                 sh "mvn test site"
             }
             
-             post {
+          /*   post {
                 always {
                     junit allowEmptyResults: true, testResults: 'target/surefire-reports/*.xml'   
                 }
-            }     
+            } */     
         }
 
         stage('deploy') { 
@@ -36,7 +36,7 @@ pipeline {
             
             steps {
                  withCredentials([string(credentialsId: 'DockerId', variable: 'Dockerpwd')]) {
-                    sh "docker login -u anvbhaskar -p ${Dockerpwd}"
+                    sh "docker login -u kirangothe -p ${Dockerpwd}"
                 }
             }                
         } */
@@ -49,15 +49,15 @@ pipeline {
         
         stage('Docker deploy'){
             steps {
-                sh 'docker run -itd -p 8000:8080 anvbhaskar/springboot'
+                sh 'docker run -itd -p 8081:8080 kirangothe/springboot'
             }
         }
 
         
-        stage('Archving') { 
+      /*  stage('Archving') { 
             steps {
                  archiveArtifacts '**/target/*.jar'
             }
-        }
+        } */
     }
 }
